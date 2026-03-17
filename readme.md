@@ -1,3 +1,5 @@
+⭐ If you find this useful, give it a star
+
 # 🚀 ApiLens — Instant API Monitoring for Laravel
 
 Stop guessing what your APIs are doing.
