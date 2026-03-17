@@ -61,6 +61,12 @@ class ApiLensServiceProvider extends ServiceProvider
             __DIR__.'/../../../database/migrations/' => database_path('migrations')
         ], 'apilens-migrations');
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \ApiLens\Laravel\Console\InstallCommand::class,
+            ]);
+        }
+
         // Register middleware
         $this->app->booted(function () {
             $router = $this->app->make(Router::class);
