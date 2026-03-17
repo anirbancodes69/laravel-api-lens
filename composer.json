@@ -2,6 +2,7 @@
   "name": "apilens/laravel-api-lens",
   "description": "API request logger and dashboard for Laravel",
   "type": "library",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "ApiLens\\": "src/"
