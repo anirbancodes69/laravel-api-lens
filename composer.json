@@ -3,6 +3,7 @@
   "description": "API request logger and dashboard for Laravel",
   "type": "library",
   "license": "MIT",
+  "author": "Anirban Bhowmick",
   "autoload": {
     "psr-4": {
       "ApiLens\\": "src/"

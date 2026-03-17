@@ -31,6 +31,11 @@ class InstallCommand extends Command
         // Final message
         $this->newLine();
         $this->info('🎉 ApiLens installed successfully!');
+
+        $this->newLine();
+        $this->info('🔧 Recommended .env settings:');
+        $this->line('APILENS_TRANSPORT=database');
+        $this->line('APILENS_TOKEN=your-secret');
         $this->line('👉 Visit: /apilens?token=secret');
         $this->line('👉 Configure: config/apilens.php');
 

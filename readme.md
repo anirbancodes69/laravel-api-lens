@@ -1,146 +1,196 @@
-# 🚀 ApiLens – Laravel API Logger & Dashboard
+# 🚀 ApiLens — Instant API Monitoring for Laravel
 
-ApiLens is a lightweight Laravel package that logs all incoming HTTP requests (API + Web) and provides a simple dashboard to monitor them.
+Stop guessing what your APIs are doing.
+
+**ApiLens** gives you a real-time dashboard of your Laravel application's requests — without setting up complex tools like Datadog or NewRelic.
 
 ---
 
-## ✨ Features
+## ⚡ Why ApiLens?
 
-- 📊 Track all API & web requests
-- ⚡ Capture endpoint, method, status, duration
-- 🗄 Store logs in database
-- 🧩 Plug & play Laravel integration
-- 📈 Built-in dashboard (`/apilens`)
-- 🔌 Extendable transport layer (DB, logs, etc.)
+* ⚡ **Zero setup** — install and start tracking instantly
+* 🔍 **See every request** — endpoint, status, duration
+* 🚨 **Spot errors fast** — 4xx / 5xx tracking
+* 🐢 **Detect slow APIs** — performance insights
+* 🧩 **Built for Laravel** — no external services
+
+---
+
+## 📸 Dashboard Preview
+
+> *(Add your screenshot here: `docs/dashboard.png`)*
+
+---
+
+## 🎯 Perfect For
+
+* Laravel developers
+* Freelancers building APIs
+* Startups needing quick visibility
+* Debugging production issues
+
+---
+
+## 📊 Features
+
+* Request logging (endpoint, method, status, time)
+* Error tracking
+* Top endpoints
+* Slow endpoints
+* Filters (status, endpoint)
+* Built-in dashboard (`/apilens`)
+* Simple token-based access control
+* Database + log transport support
 
 ---
 
 ## 📦 Installation
 
-Install via Composer:
-
 ```bash
 composer require apilens/laravel-api-lens
-⚙️ Setup
-1. Publish migrations
-php artisan vendor:publish --tag=apilens-migrations
-2. (Optional) Publish config
+```
+
+---
+
+## ⚙️ Setup (Recommended)
+
+Before installing, configure your `.env`:
+
+```env
+APILENS_TRANSPORT=database
+APILENS_TOKEN=your-secret
+```
+
+Then run:
+
+```bash
+php artisan apilens:install
+```
+
+This will:
+
+* Run migrations
+* (Optional) publish config
+* Guide you to next steps
+
+---
+
+## 🚀 Usage
+
+Open your browser:
+
+```
+http://localhost:8000/apilens?token=your-secret
+```
+
+---
+
+## 🔐 Security
+
+ApiLens uses simple token-based protection:
+
+```
+/apilens?token=your-secret
+```
+
+You can disable auth in config if needed.
+
+---
+
+## ⚙️ Configuration
+
+(Optional — publish only if you want to customize)
+
+```bash
 php artisan vendor:publish --tag=apilens-config
-3. Run migrations
+```
+
+Config file:
+
+```
+config/apilens.php
+```
+
+---
+
+## 🗄 Database
+
+Migrations are loaded automatically from the package.
+
+You only need:
+
+```bash
 php artisan migrate
-4. Add Env variable
-APILENS_TRANSPORT=
-APILENS_TOKEN=
+```
 
-🚀 Usage
+> You do NOT need to publish migrations unless you want to modify them.
 
-That’s it. No extra setup required.
+---
 
-All incoming requests will now be automatically tracked.
+## 🔌 Transport Options
 
-📊 Dashboard
-
-Open in browser:
-
-http://localhost:8000/apilens
-
-You will see:
-
-Endpoint
-
-Method
-
-Status code
-
-Duration
-
-Timestamp
-
-⚙️ Configuration
-
-File: config/apilens.php
-
-return [
-    'transport' => 'database', // options: database, log
-];
-
-You can switch transport easily.
-
-🔌 Transport Layer
-
-ApiLens uses a pluggable transport system.
+```env
+APILENS_TRANSPORT=database
+```
 
 Available:
 
-database → stores logs in DB
+* `database` → stores logs in DB
+* `log` → stores logs in file
 
-log → stores logs in file
+---
 
-🧠 How It Works
+## 🧠 How It Works
 
-Middleware captures request + response
+1. Middleware captures request + response
+2. Event is created
+3. Tracker sends data to transport
+4. Transport stores logs (DB/file)
+5. Dashboard visualizes data
 
-Event is created
+---
 
-Tracker sends event to configured transport
-
-Transport stores data (DB/log/etc.)
-
-📁 Data Structure
-
-Table: api_lens_events
-
-Column	Description
-endpoint	Request URI
-method	GET/POST/etc
-status	HTTP status code
-duration	Request time (ms)
-created_at	Timestamp
-🧪 Testing
+## 🧪 Quick Test
 
 Hit any route:
 
-http://localhost:8000/test
-http://localhost:8000/api/users
+```
+/api/test
+/test
+```
 
-Then check dashboard.
+Refresh dashboard → see logs instantly
 
-🛠 Development
+---
 
-If using locally (path repo):
+## 🛠 Development (Local Package)
 
+```json
 "repositories": [
   {
     "type": "path",
     "url": "../package"
   }
 ]
-📌 Roadmap
-
-Filters (status, endpoint, time range)
-
-Charts & analytics
-
-Multi-project support
-
-External ingestion API (SaaS mode)
-
-🤝 Contributing
-
-PRs are welcome.
-
-📄 License
-
-MIT
-
+```
 
 ---
 
-If you want next level (and closer to 💰 product):
+## 🚧 Roadmap
 
-👉 Next we should add:
-- screenshots section
-- positioning line (why better than Sentry/DataDog for small teams)
-- pricing-ready framing
+* 📈 Charts & analytics
+* ⏱ Time-based filters
+* 🔔 Alerts (Slack/email)
+* 🌐 SaaS dashboard (multi-project)
 
-Just say **“make it market-ready”** and I’ll upgrade this README into a conversion machine
+---
+
+## 🤝 Contributing
+
+PRs are welcome.
+
+---
+
+## 📄 License
+
+MIT
