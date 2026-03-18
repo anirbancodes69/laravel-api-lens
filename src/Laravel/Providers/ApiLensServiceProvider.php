@@ -72,6 +72,11 @@ class ApiLensServiceProvider extends ServiceProvider
             $router = $this->app->make(Router::class);
 
             $router->pushMiddlewareToGroup('web', TrackApiRequests::class);
+
+            // Apply to api ONLY if exists
+            if (isset($router->getMiddlewareGroups()['api'])) {
+                $router->pushMiddlewareToGroup('api', TrackApiRequests::class);
+            }
         });
     }
 }
