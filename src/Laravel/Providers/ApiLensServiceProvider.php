@@ -2,13 +2,14 @@
 
 namespace ApiLens\Laravel\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
 use ApiLens\Core\Tracker;
-use ApiLens\Core\Transport\TransportInterface;
-use ApiLens\Core\Transport\LogTransport;
 use ApiLens\Core\Transport\DatabaseTransport;
+use ApiLens\Core\Transport\LogTransport;
+use ApiLens\Core\Transport\TransportInterface;
 use ApiLens\Laravel\Middleware\TrackApiRequests;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Routing\Router;
+use Illuminate\Support\ServiceProvider;
 
 class ApiLensServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,8 @@ class ApiLensServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Paginator::useBootstrapFive();
+        
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../../../routes/web.php');
 

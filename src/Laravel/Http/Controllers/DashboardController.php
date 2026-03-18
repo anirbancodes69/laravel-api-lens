@@ -23,7 +23,7 @@ class DashboardController
         }
 
         // Logs (latest 50)
-        $events = $query->orderByDesc('id')->limit(50)->get();
+        $events = $query->orderByDesc('id')->paginate(5)->withQueryString();
 
         // Metrics (unfiltered - global)
         $total = DB::table('api_lens_events')->count();
@@ -38,15 +38,13 @@ class DashboardController
             ->select('endpoint', DB::raw('count(*) as total'))
             ->groupBy('endpoint')
             ->orderByDesc('total')
-            ->limit(10)
-            ->get();
+            ->paginate(5, ['*'], 'top_page')->withQueryString();
 
         $slowEndpoints = DB::table('api_lens_events')
             ->select('endpoint', DB::raw('avg(duration) as avg_time'))
             ->groupBy('endpoint')
             ->orderByDesc('avg_time')
-            ->limit(10)
-            ->get();
+            ->paginate(5, ['*'], 'slow_page')->withQueryString();
 
         return view('apilens::dashboard', compact(
             'total',
